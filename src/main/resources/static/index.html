@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Final Project</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	</head>
+	<body>
+		<div>Data send Sender</div>
+		<hr>
+                <form action="/GET" method="POST" enctype="multipart/form-data">
+                </form>
+		<script>
+			const url = "http://localhost:8080/POST";
+			function post(){
+				let newID = document.getElementById("myid").value;
+				let name = document.getElementById("name").value;
+                                let nik = document.getElementById("number").value;
+                                let address = document.getElementById("address").value;
+                                let photo = document.getElementById("image").value;
+				let dataText = {"id":newID,"name":name,"nik":number,"address":address,"photo":image};
+				let dataJson = JSON.stringify(dataText);
+				$.ajax({
+					url: url,
+					method: 'POST',
+					data: dataJson,
+					contentType: 'application/json',
+					dataType: 'text',
+					success: function(result){
+						console.log(result);
+					}
+				});
+			}
+			
+			function put(){
+				const urlp = "http://localhost:8080/PUT";
+				let editID = document.getElementById("myid").value;
+				let name = document.getElementById("name").value;
+                                let nik = document.getElementById("number").value;
+                                let address = document.getElementById("address").value;
+                                let photo = document.getElementById("image").value;
+				let dataText = {"id":editID,"name":name,"nik":number,"address":address,"photo":image};
+				let dataJson = JSON.stringify(dataText);
+				$.ajax({
+					url: urlp,
+					method: 'PUT',
+					data: dataJson,
+					contentType: 'application/json',
+					dataType: 'text',
+					success: function(result){
+						document.getElementById("viewer").innerHTML = result;
+
+					}
+				});
+			}
+			
+			function get(){
+				const urlg = "http://localhost:8080/GET";
+				$.ajax({
+					url: urlg,
+					method: 'GET',
+					dataType: 'text',
+					success: function(result){
+						document.getElementById("viewer").innerHTML = result;
+					}
+				});
+			}
+			
+			function delID(){
+				const urlg = "http://localhost:8080/DELETE";
+				let editID = document.getElementById("myid").value;
+				let name = document.getElementById("name").value;
+                                let nik = document.getElementById("number").value;
+                                let address = document.getElementById("address").value;
+                                let photo = document.getElementById("image").value;
+				let dataText = {"id":editID,"name":name,"nik":number,"address":address,"photo":image};
+				let dataJson = JSON.stringify(dataText);
+				$.ajax({
+					url: urlg,
+					method: 'DELETE',
+					data: dataJson,
+					contentType: 'application/json',
+					dataType: 'text',
+					success: function(result){
+						document.getElementById("viewer").innerHTML = result;
+					}
+				});
+			}
+			
+		</script>
+		<input type="text" id="myid" name="myid">
+		<input type="text" id="name" name="name">
+                <input type="text" id="nik" name="number">
+                <input type="text" id="address" name="address">
+                <input type="file" id="photo" name="image">
+		
+		<hr>
+		<button onclick="get()">Get The Data from Web Server</button><br>
+		<button onclick="post()">Send The Data to Web Server</button><br>
+		<button onclick="put()">Edit The Data of Web Server</button><br>
+		<button onclick="delID()">Delete The Data of Web Server</button>
+		<hr>
+		<div id="viewer"></div>
+	</body>
+</html>
